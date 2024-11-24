@@ -20,6 +20,8 @@ bg_move = 3
 IMAGE_PATH = 'goose'
 PLAYER_IMAGES = os.listdir(IMAGE_PATH)
 player = pygame.image.load('player.png').convert_alpha()
+##player_rect = player.get_rect()
+#player_rect.center = main_display.get_rect().center
 player_coordinate = (100, 150)
 player_rect = player.get_rect(center=(100, 350))
 player_move_down = [0, 1]
@@ -30,22 +32,32 @@ enemyes = []
 bonuses = []
 score = 0
 image_index = 0
-enemy_g = pygame.transform.scale(pygame.image.load('enemy.png'), (WIDTH, HEIGHT))
-bonus_g = pygame.transform.scale(pygame.image.load('bonus.png'), (WIDTH, HEIGHT))
+#enemy_g = pygame(pygame.image.load('enemy.png'), (WIDTH, HEIGHT))
+# Завантаження зображення ворога
+enemy_image = pygame.image.load('enemy.png')
 
+# Створення прямокутника для ворога
+enemy_rect = enemy_image.get_rect()
+enemy_g = [enemy_image, enemy_rect]
+#bonus_g = pygame(pygame.image.load('bonus.png'), (WIDTH, HEIGHT))
+# Завантаження зображення ворога
+bonus_image = pygame.image.load('bonus.png')
 
+# Створення прямокутника для ворога
+bonus_rect = bonus_image.get_rect()
+bonus_g = [bonus_image, bonus_rect]
 def create_enemy():
     enemy_size = (20, 8)
-    enemy = enemy_g.image('enemy.png')
-    enemy_rect = enemy_g.Rect( random.randint(100, 200),-100, *enemy_size)
-    enemy_move = [random.randint(-8, -4), 0]
+    enemy = pygame.image.load('enemy.png')
+    enemy_rect = pygame.Rect( random.randint(100, 200),-100, *enemy_size)
+    enemy_move = [random.randint(-8, -4), 0] 
     return [enemy, enemy_rect, enemy_move]
 
 
 def create_bonus():
     bonus_size = (20, 40)
-    bonus = bonus_g.image.load('bonus.png')
-    bonus_rect = bonus_g.Rect(random.randint(100, 1150), -350, *bonus_size)
+    bonus =  pygame.image.load('bonus.png')
+    bonus_rect = pygame. Rect(random.randint(100, 1150), -350, *bonus_size)
     bonus_move = [0, random.randint(4, 8)]
     return [bonus, bonus_rect, bonus_move]
 
@@ -83,6 +95,8 @@ while playing:
     main_display.blit(bg, (bg_X2, 0))
     keys = pygame.key.get_pressed()
     if keys[K_DOWN] and player_rect.bottom < HEIGHT:
+        # В умовах руху гравця потрібно  визначити відповідні боки гравця при русі до певних меж,
+        #  наприклад, left при русі вліво, тоді гравця буде повністю видно в межах екрану
         player_rect = player_rect.move(player_move_down)
     if keys[K_RIGHT] and player_rect.bottom < WIDTH:
         player_rect = player_rect.move(player_move_right)
@@ -106,6 +120,7 @@ while playing:
 
     main_display.blit(FONT.render(str(score), True,
                       COLOR_BLACK), (WIDTH-50, 20))
+
     main_display.blit(player, player_rect)
     pygame.display.flip()
     for enemy in enemyes:
