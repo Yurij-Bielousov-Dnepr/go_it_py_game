@@ -34,18 +34,18 @@ score = 0
 image_index = 0
 #enemy_g = pygame(pygame.image.load('enemy.png'), (WIDTH, HEIGHT))
 # Завантаження зображення ворога
-enemy_image = pygame.image.load('enemy.png')
+##enemy_image = pygame.image.load('enemy.png')
 
 # Створення прямокутника для ворога
-enemy_rect = enemy_image.get_rect()
-enemy_g = [enemy_image, enemy_rect]
+#enemy_rect = enemy_image.get_rect()
+#enemy_g = [enemy_image, enemy_rect]
 #bonus_g = pygame(pygame.image.load('bonus.png'), (WIDTH, HEIGHT))
 # Завантаження зображення ворога
-bonus_image = pygame.image.load('bonus.png')
+##bonus_image = pygame.image.load('bonus.png')
 
 # Створення прямокутника для ворога
-bonus_rect = bonus_image.get_rect()
-bonus_g = [bonus_image, bonus_rect]
+#bonus_rect = bonus_image.get_rect()
+#bonus_g = [bonus_image, bonus_rect]
 def create_enemy():
     enemy_size = (20, 8)
     enemy = pygame.image.load('enemy.png')
@@ -100,7 +100,7 @@ while playing:
         player_rect = player_rect.move(player_move_down)
     if keys[K_RIGHT] and player_rect.bottom < WIDTH:
         player_rect = player_rect.move(player_move_right)
-    if keys[K_UP] and player_rect.bottom > 0:
+    if keys[K_UP] and player_rect.top > 0:
         player_rect = player_rect.move(player_move_up)
     if keys[K_LEFT] and player_rect.bottom > 0:
         player_rect = player_rect.move(player_move_left)
@@ -127,5 +127,5 @@ while playing:
         if enemy[1].left < 0:
             enemyes.pop(enemyes.index(enemy))
     for bonus in bonuses:
-        if bonus[1].bottom < 0:
+        if bonus[1].bottom < HEIGHT:
             bonuses.pop(bonuses.index(bonus))
